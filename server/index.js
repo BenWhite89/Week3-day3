@@ -15,15 +15,13 @@ var server = http.createServer(function(req, res) {
             res.writeHead(200, {'Content-type': 'json'});
             fs.createReadStream(pathName).pipe(res);
         } else if (req.method == 'POST') {
-            var strJSON = [];
-            var list = [];
             fs.readFile(pathName, function(err, data) {
                 if (err) {
                     throw err;
                 } else {
+                    var strJSON = [];
                     strJSON.push(data);
-                    list.push(JSON.parse(strJSON));
-
+                    var list = JSON.parse(strJSON);
                     var post = '';
 
                     req.on('data', function(chunk) {
