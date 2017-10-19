@@ -12,7 +12,7 @@ var server = http.createServer(function(req, res) {
     } else if (url.parse(req.url).pathname == `/api/chirps`) {
         var pathName = path.join(__dirname, 'data.json');
         if (req.method == 'GET') {
-            res.writeHead(200, {'Content-type': 'json'});
+            res.writeHead(200, {'Content-type': 'application/json'});
             fs.createReadStream(pathName).pipe(res);
         } else if (req.method == 'POST') {
             fs.readFile(pathName, function(err, data) {
@@ -49,7 +49,9 @@ var server = http.createServer(function(req, res) {
         }
     } else {
         var address = url.parse(req.url).pathname;
-        var ext = `"${path.extname(address)}"`;
+        var ext = path.extname(address);
+        var extTrim = ext.substr(1,ext.length)
+        var extOp = `text/${extTrim}`;
         var newPath = path.join(__dirname, '../client', address);
 
         fs.readFile(newPath, function(err, data) {
@@ -57,7 +59,9 @@ var server = http.createServer(function(req, res) {
                 res.writeHead(404);
                 res.end();
             }
-            res.writeHead(201, {"Content-type": ext})
+            res.writeHead(201, {
+                "Content-type": extOp
+            })
             fs.createReadStream(newPath).pipe(res);
         })
     }

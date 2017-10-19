@@ -29,9 +29,9 @@ $(function() {
             let index = 0;
             data.reverse().forEach(function(e) {
                 $(`#feed`).append(`<div id="${index}" class="chirp"></div>`);
-                $(`#${index}`).append(`<div class="chirp user">${e.user}</div>`);
-                $(`#${index}`).append(`<div class="chirp msg">${e.message}</div>`);
-                $(`#${index}`).append(`<div class="chirp ts">${e.timestamp}</div>`);
+                $(`#${index}`).append(`<div class="user">${e.user}</div>`);
+                $(`#${index}`).append(`<div class="msg">${e.message}</div>`);
+                $(`#${index}`).append(`<div class="ts">${e.timestamp}</div>`);
                 index += 1;
             });
         })
